@@ -1,1 +1,4 @@
+com/pokerlabs/domain/Suit.class
+com/pokerlabs/domain/Rank.class
+com/pokerlabs/domain/Card.class
 com/pokerlabs/App.class

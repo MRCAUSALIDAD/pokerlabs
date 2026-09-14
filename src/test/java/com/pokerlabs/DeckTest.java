@@ -14,9 +14,10 @@ public class DeckTest {
     @Test(expected = IllegalStateException.class)
     public void emptyDeckShouldThrowExceptionWhenRequestingCard() {
         Deck deck = new Deck();
-        for (int i = 0; i <= 52; i++) {
-            deck.getRandomCard();
+        for (int i = 0; i < 52; i++) {
+            deck.draw();
         }
+        deck.draw();
     }
 
     @Test
@@ -27,7 +28,7 @@ public class DeckTest {
         assertEquals(52, deck.size());
 
         for (int i = 0; i < 52; i++) {
-            Card card = deck.getRandomCard();
+            Card card = deck.draw();
             drawnCards.add(card);
         }
 
@@ -37,7 +38,19 @@ public class DeckTest {
     @Test
     public void drawingACardReducesTheSizeTo51() {
         Deck deck = new Deck();
-        deck.getRandomCard();
+        deck.draw();
         assertEquals(51, deck.size());
+    }
+
+    @Test
+    public void shuffledDeckShouldContain52UniqueCards() {
+        Deck deck = new Deck();
+        deck.shuffle();
+        Set<Card> drawnCards = new HashSet<>();
+        for (int i = 0; i < 52; i++) {
+            drawnCards.add(deck.draw());
+        }
+
+        assertEquals(52, drawnCards.size());
     }
 }

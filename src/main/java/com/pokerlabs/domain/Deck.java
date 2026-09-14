@@ -28,8 +28,6 @@ public final class Deck {
         Random random = new Random();
         Card card = this.deck.get(random.nextInt(this.deck.size()));
         this.deck.remove(card);
-        System.out.println("cartas restantes: " + this.deck.size());
-
         return card;
     }
 }

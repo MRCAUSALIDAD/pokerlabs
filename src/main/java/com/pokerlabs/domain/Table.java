@@ -12,7 +12,6 @@ public class Table {
     List<Position> enablePositions = new ArrayList<>();
     private List<Player> listPlayers = new ArrayList<>();
     private List<PlayerPosition> listPlayersPosition = new ArrayList<>();
-
     public Table(int maxPlayers, double minBet, double maxBet) {
         this.maxPlayers = maxPlayers;
         this.minBet = minBet;
@@ -28,17 +27,17 @@ public class Table {
         return this.enablePositions;
     }
 
-    public String registerAtTheDesk(Player player) {
+    public void registerAtTheDesk(Player player) {
         
-        if (this.listPlayers.size() != this.maxPlayers) {
+        if (this.listPlayers.contains(player)) { // contains utiliza el método equals por dentro
+            throw new IllegalStateException("No puedes registrarte varias veces en esta mesa.");
+        }else if (this.listPlayers.size() != this.maxPlayers) {
             this.listPlayers.add(player);
             this.positionPlayer(player);
-        } else if (this.listPlayers.contains(player)) { // contains utiliza el método equals por dentro
-            System.out.println("No puedes registrarte varias veces en esta mesa.");
-        } else {
-            System.out.println(player.getName() + " no puedes registrarte, la mesa está llena.");
+        }  else {
+            throw new IllegalStateException(player.getName() + " no puedes registrarte, la mesa está llena.");
         }
-        return null;
+
     }
 
      public void positionPlayer(Player p) {
@@ -48,6 +47,10 @@ public class Table {
         Position position = this.enablePositions.removeFirst();
         this.listPlayersPosition.add(new PlayerPosition(p, position));
         System.out.println("Acabas de entrar a la mesa " + p.getName() + " con un stack de: " + p.getStack() + " estas en la posición: " + position);
+    }
+
+    public boolean isPlayerRegistered(Player player) {
+        return this.listPlayers.contains(player);
     }
 
     // 3+ jugadores:

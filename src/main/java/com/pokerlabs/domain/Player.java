@@ -17,9 +17,11 @@ public class Player {
     private final int stack;
 
     static final int maxCards = 2;
-    static final int timeToTalk = 20;
 
     public Player(String name, int stack) {
+        if(name == null || stack == 0) {
+            throw new IllegalArgumentException("El nombre o el stack no puede ir vacío");
+        }
         this.id = CONTADOR.incrementAndGet();
         this.name = name;
         this.stack = stack;
@@ -39,10 +41,6 @@ public class Player {
 
     public static int getMaxCards() {
         return maxCards;
-    }
-
-    public static int getTimeToTalk() {
-        return timeToTalk;
     }
 
     @Override 

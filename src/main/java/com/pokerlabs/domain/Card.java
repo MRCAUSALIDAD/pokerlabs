@@ -1,5 +1,7 @@
 package com.pokerlabs.domain;
 
+import java.util.Objects;
+
 /* cantidad de cartas  
     4 cartas del mismo numero con diferentes palos * 13 = 52 cartas.
     Antes de recibir cartas ((52 * 51) / 2): 1.326 combos posibles de 2 cartas.
@@ -12,6 +14,9 @@ public final class Card {
     private final Suit suit;
    
     public Card(Rank rank, Suit suit) {
+        if(rank == null || suit == null){
+            throw new IllegalArgumentException("El rank o suit no puede ser null");
+        }
         this.rank = rank;
         this.suit = suit;
        
@@ -24,6 +29,26 @@ public final class Card {
 
     public Suit getSuit() {
         return suit;
+    }
+
+    @Override 
+    public boolean equals(Object obj){
+        if(this == obj){
+            return true;
+        }
+        if (!(obj instanceof Card)){
+            return false;
+        }
+
+        Card otherCard = (Card) obj;
+
+        return (this.rank == otherCard.rank && this.suit == otherCard.suit);
+    }
+
+    @Override 
+    public int hashCode(){
+        //Objects.hash(rank, suit) construye un número entero (int) a partir de esos objetos, de forma que puedas usar ese número como una especie de "huella" para búsquedas rápidas
+        return Objects.hash(rank, suit);
     }
 
 }

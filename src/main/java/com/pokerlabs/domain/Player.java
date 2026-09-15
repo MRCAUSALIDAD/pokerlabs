@@ -23,7 +23,7 @@ public class Player {
     private final List<Card> hand = new ArrayList<>();
 
     public Player(String name, int stack) {
-        if (name == null || stack == 0) {
+        if (name == null || stack <= 0) {
             throw new IllegalArgumentException("El nombre o el stack no puede ir vacío");
         }
 

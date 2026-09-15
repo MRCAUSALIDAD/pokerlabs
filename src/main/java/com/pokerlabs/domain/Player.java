@@ -1,5 +1,7 @@
 package com.pokerlabs.domain;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
 /*
@@ -13,15 +15,18 @@ public class Player {
     private static final AtomicLong CONTADOR = new AtomicLong(0);
     private final long id;
 
-    private final String name;
+    private String name;
     private final int stack;
 
     static final int maxCards = 2;
 
+    private final List<Card> hand = new ArrayList<>();
+
     public Player(String name, int stack) {
-        if(name == null || stack == 0) {
+        if (name == null || stack == 0) {
             throw new IllegalArgumentException("El nombre o el stack no puede ir vacío");
         }
+
         this.id = CONTADOR.incrementAndGet();
         this.name = name;
         this.stack = stack;
@@ -43,20 +48,34 @@ public class Player {
         return maxCards;
     }
 
-    @Override 
-    public boolean equals(Object obj){
-        if (this == obj){
+    public void receiveCard(Card card) {
+        if (card == null) {
+            throw new IllegalArgumentException("No existe ninguna carta");
+        }
+        if (hand.size() >= maxCards) {
+            throw new IllegalStateException("No puede tener más de 2 cartas");
+        }
+        hand.add(card);
+    }
+
+    public List<Card> getHand() {
+        return List.copyOf(hand);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
             return true;
         }
         if (!(obj instanceof Player)) {
-            return false;   
+            return false;
         }
         Player otherPlayer = (Player) obj;
 
         return this.id == otherPlayer.id;
     }
 
-    @Override 
+    @Override
     public int hashCode() {
         return Long.hashCode(id);
     }

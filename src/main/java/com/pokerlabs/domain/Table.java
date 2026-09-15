@@ -46,7 +46,6 @@ public class Table {
         }
         Position position = this.enablePositions.removeFirst();
         this.listPlayersPosition.add(new PlayerPosition(p, position));
-        System.out.println("Acabas de entrar a la mesa " + p.getName() + " con un stack de: " + p.getStack() + " estas en la posición: " + position);
     }
 
     public boolean isPlayerRegistered(Player player) {
